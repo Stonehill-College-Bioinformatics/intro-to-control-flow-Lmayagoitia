@@ -27,6 +27,15 @@ Control flows in R determine the sequence in which the instructions are executed
 In R, the basic conditional statements are `if`, `else`, and `else if`. 
 
 ```{r}
+a = 2
+a = a+1
+a = a+1
+a = a+1
+a = a+1
+a
+```
+
+```{r}
 set.seed(42) # This ensures that the random number generator will produce the same results each time the script is run
 x <- runif(1, 0, 10)
 
@@ -46,6 +55,9 @@ if (x > 5) {
 There are two primary loops in R - `for` and `while`. `for` loops are used when the number of iterations is known, while `while` loops are used when the number of iterations is unknown and require an iterator variable.
 
 **For loop**
+```{r}
+1:5
+```
 
 ```{r}
 for (i in 1:5) {
@@ -133,21 +145,62 @@ Write a conditional script that:
 
 Store the result in a new variable called grade_tags. Ensure the order in grade_tags corresponds to the order of grades in the grades vector, and print the result.
 
+```{r}
+grades <- c(91, 77, 68, 65, 89, 72, 85, 90, 80)
 
+grade_tags <- ifelse(grades > 90, "Excellent",
+              ifelse(grades >= 80 & grades <= 90, "Good", "Fair"))
+
+print(grade_tags)
+
+```
 ### 2. For
 
 Create a sequence of numbers from 3 to 15 (included). Using a for loop, compute the cumulative product of these numbers and print the results.
 
+```{r}
+numbers=3:15
 
+cumulative=1
+
+for (number in numbers) {
+  cumulative <- cumulative * number
+  print(cumulative)
+}
+
+```
 ### 3. While
 
 Starting with a number 50, decrease it by 5% in every iteration using a while loop. Continue the iterations until the number goes below 20. Return and print the number of iterations it took.
 
+``` {r}
+numbers=50
+iterations=0
+
+while (numbers>=20) {
+  numbers=numbers * 0.95
+  iterations=iterations+1
+  
+}
+print (iterations)
+```
 
 ### 4. Functions with conditionals and loops
 
 Write a function named series_sum that accepts two arguments: a start value 's' and an end value 'e'. The function should sum all numbers from 's' to 'e'. However, if a number in the series is divisible by 3, it should be skipped. 
-
+``` {r}
+series_sum <- function(s,e){
+total=0
+  for (x in s:e){
+    if (x%%3 != 0){
+      total=total+x
+    }
+  }
+print(total)
+}
+series_sum(1,10)
+  
+``` 
 **Tip**: The modulo operator (`%%` in R) returns the remainder of the division of two numbers.
  
 ```{r}
@@ -159,3 +212,26 @@ Write a function named series_sum that accepts two arguments: a start value 's' 
 ### 5. Recursive Functions
 
 The Lucas series is a sequence of numbers similar to the Fibonacci series but starts with 2 and 1 instead of 0 and 1. Write a recursive function `lucas` that computes the nth value of the Lucas series.
+```{r}
+lucas=function(n){
+  if(n==1){
+    return(2)
+  }
+  else if(n==2){
+    return(1)
+  }
+  else{
+    x=2
+    y=1
+    for (z in 2:n){
+      next_lucas=x+y
+      x=y
+      y=next_lucas
+    }
+  }
+
+  return(y)
+}
+
+lucas(4)
+```
